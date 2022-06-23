@@ -1,0 +1,12 @@
+function res= isDiagDom(A)
+   res=true;
+   [m,n]=size(A);
+   if m~=n, error('La matriz no es cuadrada'), end
+   
+   i=1;
+   while res && i<n
+       res=abs(A(i,i))>sum(abs(A(i,[1:i-1 i+1:n])));
+       i=i+1;
+   end
+   
+end

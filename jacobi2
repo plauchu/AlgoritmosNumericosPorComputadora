@@ -1,0 +1,27 @@
+function [x,i] = Jacobi2(A,b)
+    if ~isDiagDom(A)
+        warning('La matriz no es diagonalmente dominante')
+    end
+    
+    d=diag(A);
+    D=diag(d);
+    U=triu(A,1);
+    L=tril(A,-1);
+    
+    tol=eps;
+    MAXi=1000;
+    n=length(A);
+    i=0;
+    x=zeros(size(b));
+    
+    do=true;
+    while do 
+        xp=x;
+        for j=1:n
+            x(j)=(b(j)-(L(j,1:j-1)*xp(1:j-1)+U(j,j+1:n)*xp(j+1:n)))/D(j,j);
+        end    
+        i=i+i;
+        do=norm((x-xp)./x,Inf)>tol && i<MAXi;  
+    end    
+    
+end
